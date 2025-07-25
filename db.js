@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Connect to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/sample', {
+mongoose.connect('mongodb+srv://shivasarva32:lpjjlCeHY71UpgH1@zeroday-cluster.jrbqrnh.mongodb.net/?retryWrites=true&w=majority&appName=ZeroDay-Cluster', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {
