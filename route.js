@@ -14,16 +14,23 @@ module.exports = (server) => {
 
     // POST: Handle login form
     server.post('/login', async (req, res) => {
-        console.log('POST /login route hit!');
-        console.log('Request body:', req.body);
-
+        console.log('POST /login route hit!'); // Check if route is reached
+        console.log('Request body:', req.body); // Check form data
+        
         try {
             const { user, password } = req.body;
-
+            
+            // Debug: Check individual values
             console.log('User:', user);
             console.log('Password:', password);
-
-            const newUser = new UserLogin({ user, password });
+            
+            // Create new document in 'userlogins' collection
+            const newUser = new UserLogin({
+                user: user,
+                password: password
+            });
+            
+            // Save to MongoDB
             await newUser.save();
 
             res.render('login', { success: 'Login successful!' });
