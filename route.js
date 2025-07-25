@@ -9,16 +9,11 @@ module.exports = (server) => {
     
     // POST route - handles form submission and saves to database
     server.post('/login', async (req, res) => {
-        console.log('POST /login route hit!'); // Check if route is reached
-        console.log('Request body:', req.body); // Check form data
         
         try {
             // Get form data from request body
             const { user, password } = req.body;
-            
-            // Debug: Check individual values
-            console.log('User:', user);
-            console.log('Password:', password);
+
             
             // Create new document in 'userlogins' collection
             const newUser = new UserLogin({
