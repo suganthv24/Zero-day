@@ -44,5 +44,9 @@ module.exports = (server) => {
  server.get('/admin/complaints',async(req,res)=>{
     res.render('compliant');
  })
+ server.get('/admin/announcements',async(req,res)=>{
+    res.render('announcement');
+ })
+ 
     return server;
 };
