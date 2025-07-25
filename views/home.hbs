@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - CampusLink</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #f8f8f8;
+      line-height: 1.6;
+    }
+
+    .header {
+      background: white;
+      border-bottom: 2px solid #333;
+      padding: 15px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #333;
+      font-style: italic;
+      text-decoration: none;
+    }
+
+    .logo-subtitle {
+      font-size: 0.8rem;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: -5px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-menu a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      padding: 8px 15px;
+      border-radius: 5px;
+    }
+
+    .nav-menu a:hover {
+      color: #8B4513;
+      background-color: #f0f0f0;
+    }
+
+    .nav-menu a.active {
+      color: #8B4513;
+      background-color: #f0f0f0;
+    }
+
+    .logout-btn {
+      background: #dc3545;
+      color: white !important;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #c82333 !important;
+      transform: translateY(-2px);
+    }
+
+    .main-content {
+      margin-top: 80px;
+      min-height: calc(100vh - 160px);
+      padding: 20px;
+    }
+
+    .footer {
+      background: #333;
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #333;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        border-top: 2px solid #333;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      .logo {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="nav-container">
+      <div>
+        <a href="/admin/home" class="logo">CampusLink</a>
+        <div class="logo-subtitle">Admin Dashboard</div>
+      </div>
+      
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+      
+      <nav class="nav-menu" id="navMenu">
+        <a href="/admin/home" class="active">Dashboard</a>
+        <a href="/admin/announcements">Announcements</a>
+        <a href="/admin/lost-found">Lost & Found</a>
+        <a href="/admin/complaints">Complaints</a>
+        <a href="/admin/users">Users</a>
+        <a href="/" class="logout-btn">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <!-- Content will be added here -->
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 CampusLink Administration. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    function toggleMobileMenu() {
+      const navMenu = document.getElementById("navMenu");
+      navMenu.classList.toggle("active");
+    }
+  </script>
+</body>
+</html>

@@ -10,20 +10,8 @@ mongoose.connect('mongodb+srv://shivasarva32:lpjjlCeHY71UpgH1@zeroday-cluster.jr
     console.error('MongoDB connection error:', err);
 });
 
-// Define the schema
-const userLoginSchema = new mongoose.Schema({
-    user: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    }
-});
 
-// Create a model
-const UserLogin = mongoose.model('UserLogin', userLoginSchema);
 
-// Export the model
-module.exports = UserLogin;
+// Create two models for different collections
+
+// Export both models

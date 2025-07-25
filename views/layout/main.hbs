@@ -1,36 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- Custom styles -->
-    <style>
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-    </style>
-    
-    <!-- Page specific head content -->
-    {{{block "head"}}}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{title}}</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #f8f8f8;
+      line-height: 1.6;
+    }
+
+    .header {
+      background: white;
+      border-bottom: 2px solid #333;
+      padding: 15px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #333;
+      font-style: italic;
+      text-decoration: none;
+    }
+
+    .logo-subtitle {
+      font-size: 0.8rem;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: -5px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-menu a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      padding: 8px 15px;
+      border-radius: 5px;
+    }
+
+    .nav-menu a:hover {
+      color: #8B4513;
+      background-color: #f0f0f0;
+    }
+
+    .nav-menu a.active {
+      color: #8B4513;
+      background-color: #f0f0f0;
+    }
+
+    .login-btn {
+      background: #8B4513;
+      color: white !important;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .login-btn:hover {
+      background: #5d2d0c !important;
+      transform: translateY(-2px);
+    }
+
+    .main-content {
+      margin-top: 80px;
+      min-height: calc(100vh - 160px);
+    }
+
+    .footer {
+      background: #333;
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #8B4513;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      width: 400px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      border: 2px solid #333;
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #888;
+      cursor: pointer;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 20px;
+      color: #333;
+      font-style: italic;
+    }
+
+    .modal-content input {
+      width: 90%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .modal-content button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      border-radius: 6px;
+      border: none;
+      background: #333;
+      color: white;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+    }
+
+    .modal-content button:hover {
+      background: #555;
+      transform: translateY(-2px);
+    }
+
+    .modal-content button[type="button"] {
+      background: #8B4513;
+      margin-right: 10px;
+    }
+
+    .modal-content button[type="button"]:hover {
+      background: #5d2d0c;
+    }
+
+    .alert {
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .alert-error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Mobile Navigation */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #333;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        border-top: 2px solid #333;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .logo {
+        font-size: 2rem;
+      }
+
+      .modal-content {
+        width: 90%;
+        margin: 0 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Page content -->
-    {{{block "body"}}}
-    
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Page specific scripts -->
-    {{{block "scripts"}}}
+  <!-- Header -->
+  <header class="header">
+    <div class="nav-container">
+      <div>
+        <a href="/" class="logo">RestroBytes</a>
+        <div class="logo-subtitle">Italian Food & Wine</div>
+      </div>
+      
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+      
+      <nav class="nav-menu" id="navMenu">
+        <a href="/" {{#if (eq currentPage 'home')}}class="active"{{/if}}>Home</a>
+        <a href="/menu" {{#if (eq currentPage 'menu')}}class="active"{{/if}}>Menu</a>
+        <a href="/about" {{#if (eq currentPage 'about')}}class="active"{{/if}}>About</a>
+        <a href="/contact" {{#if (eq currentPage 'contact')}}class="active"{{/if}}>Contact</a>
+        <a href="#" onclick="openModal()" class="login-btn">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    {{{body}}}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#contact">Contact Us</a>
+        <a href="/admin">Admin</a>
+      </div>
+      <p>&copy; 2025 RestroBytes. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>{{#if message}}{{message}}{{else}}Login to RestroBytes{{/if}}</h2>
+
+      {{#if message}}
+      <div class="alert {{#if error}}alert-error{{else}}alert-success{{/if}}">
+        {{message}}
+      </div>
+      {{/if}}
+
+      <form method="POST" action="/login">
+        <div>
+          <label for="email">Email:</label><br />
+          <input type="email" id="email" name="email" required />
+        </div>
+        <br />
+        <div>
+          <label for="password">Password:</label><br />
+          <input type="password" id="password" name="password" required />
+        </div>
+        <br />
+        <h3>If you are an admin</h3>
+        <a href="/admin"><button type="button">Admin</button></a>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Scripts -->
+  <script>
+    function openModal() {
+      document.getElementById("loginModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("loginModal").style.display = "none";
+    }
+
+    function toggleMobileMenu() {
+      const navMenu = document.getElementById("navMenu");
+      navMenu.classList.toggle("active");
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById("loginModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+
+    {{#if message}}
+    document.addEventListener('DOMContentLoaded', function () {
+      openModal();
+    });
+    {{/if}}
+  </script>
 </body>
 </html>

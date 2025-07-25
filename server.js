@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('./db');
 const hbs = require('express-handlebars');
+const sections = require('express-handlebars-sections');
 
 // Initialize the server
 const server = express();
